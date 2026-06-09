@@ -10,6 +10,43 @@
   </head>
   <body>
     <main id="game-shell">
+      <section id="landing-page" class="landing-page">
+        <div class="landing-copy">
+          <p class="eyebrow">p5.js + ml5.js + webcam</p>
+          <h1>嘴巴快問快答</h1>
+          <p class="subtitle">用臉部辨識回答 10 題台灣常識是非題。</p>
+          <div class="rules-grid" aria-label="玩法說明">
+            <div class="rule">
+              <span class="rule-key">YES</span>
+              <span>張嘴作答</span>
+            </div>
+            <div class="rule">
+              <span class="rule-key">NO</span>
+              <span>閉嘴作答</span>
+            </div>
+            <div class="rule">
+              <span class="rule-key">10</span>
+              <span>共 10 題台灣常識</span>
+            </div>
+            <div class="rule">
+              <span class="rule-key">3s</span>
+              <span>答對後播放特效</span>
+            </div>
+          </div>
+          <button id="start-button" type="button">開始遊戲</button>
+          <p class="permission-note">按下開始後，請允許瀏覽器使用 webcam。</p>
+        </div>
+        <div class="landing-preview" aria-hidden="true">
+          <div class="preview-face">
+            <span class="node n1"></span>
+            <span class="node n2"></span>
+            <span class="node n3"></span>
+            <span class="node n4"></span>
+            <span class="node n5"></span>
+            <span class="mouth-shape"></span>
+          </div>
+        </div>
+      </section>
       <div id="canvas-holder"></div>
     </main>
     <script src="sketch.js"></script>

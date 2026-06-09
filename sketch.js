@@ -11,7 +11,7 @@ const correctEffectTime = 3000;
 
 let questionIndex = 0;
 let score = 0;
-let gameState = "loading";
+let gameState = "landing";
 let stateStartedAt = 0;
 let stableMouthState = null;
 let stableStartedAt = 0;
@@ -59,6 +59,28 @@ function setup() {
   canvas.parent("canvas-holder");
   textFont("Noto Sans TC, Microsoft JhengHei, Arial");
 
+  const startButton = document.getElementById("start-button");
+  startButton.addEventListener("click", startGame);
+}
+
+function startGame() {
+  const landingPage = document.getElementById("landing-page");
+  landingPage.classList.add("is-hidden");
+
+  questionIndex = 0;
+  score = 0;
+  faces = [];
+  feedbackText = "";
+  effectParticles = [];
+  stableMouthState = null;
+  stableStartedAt = 0;
+  gameState = "loading";
+  stateStartedAt = millis();
+
+  if (video) {
+    video.remove();
+  }
+
   video = createCapture(VIDEO, () => {
     gameState = "answering";
     stateStartedAt = millis();
@@ -70,6 +92,11 @@ function setup() {
 }
 
 function draw() {
+  if (gameState === "landing") {
+    drawIdleBackground();
+    return;
+  }
+
   drawCameraBackground();
   drawFaceMesh();
 
@@ -80,11 +107,25 @@ function draw() {
   drawOverlay(mouth);
 }
 
+function drawIdleBackground() {
+  background(18, 18, 18);
+  noStroke();
+  fill(49, 214, 177, 32);
+  circle(width * 0.26, height * 0.28, 260);
+  fill(255, 229, 118, 28);
+  circle(width * 0.78, height * 0.7, 300);
+}
+
 function gotFaces(results) {
   faces = results;
 }
 
 function drawCameraBackground() {
+  if (!video) {
+    drawIdleBackground();
+    return;
+  }
+
   push();
   translate(width, 0);
   scale(-1, 1);

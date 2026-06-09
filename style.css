@@ -15,10 +15,15 @@ body {
 }
 
 #game-shell {
+  position: relative;
   width: min(100vw, 960px);
   height: min(100vh, 720px);
   display: grid;
   place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(49, 214, 177, 0.16), transparent 32%),
+    linear-gradient(135deg, #121212 0%, #20221f 52%, #0c2522 100%);
 }
 
 #canvas-holder {
@@ -30,8 +35,219 @@ body {
   background: #050505;
 }
 
+.landing-page {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
+  gap: 32px;
+  align-items: center;
+  padding: 56px;
+  box-sizing: border-box;
+  background:
+    linear-gradient(90deg, rgba(18, 18, 18, 0.98), rgba(18, 18, 18, 0.82)),
+    linear-gradient(135deg, #121212, #0d2e29);
+}
+
+.landing-page.is-hidden {
+  display: none;
+}
+
+.landing-copy {
+  max-width: 560px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: #31d6b1;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+h1 {
+  margin: 0;
+  color: #fff7d8;
+  font-size: 58px;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.subtitle {
+  margin: 18px 0 28px;
+  color: #f7f3ea;
+  font-size: 23px;
+  line-height: 1.55;
+}
+
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 62px;
+  padding: 12px 14px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  font-size: 18px;
+}
+
+.rule-key {
+  display: grid;
+  place-items: center;
+  min-width: 48px;
+  height: 36px;
+  border-radius: 8px;
+  background: #31d6b1;
+  color: #061614;
+  font-weight: 800;
+}
+
+#start-button {
+  min-width: 180px;
+  height: 54px;
+  border: 0;
+  border-radius: 8px;
+  background: #ffe576;
+  color: #15120a;
+  font: inherit;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(255, 229, 118, 0.22);
+}
+
+#start-button:hover {
+  background: #fff0a3;
+}
+
+#start-button:focus-visible {
+  outline: 3px solid #31d6b1;
+  outline-offset: 4px;
+}
+
+.permission-note {
+  margin: 16px 0 0;
+  color: rgba(247, 243, 234, 0.72);
+  font-size: 15px;
+}
+
+.landing-preview {
+  display: grid;
+  place-items: center;
+  min-height: 430px;
+}
+
+.preview-face {
+  position: relative;
+  width: min(78vw, 330px);
+  aspect-ratio: 1;
+  border: 2px solid rgba(49, 214, 177, 0.55);
+  border-radius: 50%;
+  background:
+    linear-gradient(rgba(255, 229, 118, 0.24), rgba(255, 229, 118, 0.02)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 32px);
+  box-shadow: inset 0 0 44px rgba(49, 214, 177, 0.18), 0 22px 60px rgba(0, 0, 0, 0.28);
+}
+
+.preview-face::before,
+.preview-face::after {
+  content: "";
+  position: absolute;
+  top: 34%;
+  width: 42px;
+  height: 18px;
+  border-top: 4px solid #31d6b1;
+  border-radius: 50%;
+}
+
+.preview-face::before {
+  left: 27%;
+}
+
+.preview-face::after {
+  right: 27%;
+}
+
+.node {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #ffdd55;
+  box-shadow: 0 0 16px rgba(255, 221, 85, 0.7);
+}
+
+.n1 { left: 50%; top: 16%; }
+.n2 { left: 25%; top: 42%; }
+.n3 { right: 25%; top: 42%; }
+.n4 { left: 36%; bottom: 26%; }
+.n5 { right: 36%; bottom: 26%; }
+
+.mouth-shape {
+  position: absolute;
+  left: 50%;
+  bottom: 24%;
+  width: 96px;
+  height: 52px;
+  transform: translateX(-50%);
+  border: 5px solid #ff6384;
+  border-radius: 50%;
+  background: rgba(255, 99, 132, 0.22);
+}
+
 canvas {
   display: block;
   width: 100% !important;
   height: auto !important;
+}
+
+@media (max-width: 760px) {
+  body {
+    overflow: auto;
+  }
+
+  #game-shell {
+    min-height: 100vh;
+    height: auto;
+  }
+
+  .landing-page {
+    position: fixed;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 28px 20px;
+    overflow-y: auto;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  .subtitle {
+    font-size: 19px;
+  }
+
+  .rules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .landing-preview {
+    min-height: 220px;
+  }
+
+  .preview-face {
+    width: 210px;
+  }
 }
